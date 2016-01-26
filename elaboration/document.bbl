@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{LdapFlags}
+B.2. using ldapsearch.
+\newblock
+  https://www.centos.org/docs/5/html/CDS/ag/8.0/Finding\_Directory\_Entries-Using\_ldapsearch.html.
+\newblock Zuletzt besucht: 14.01.2016.
+
+\bibitem{StackoverflowAuthenticate}
+How do a ldap search/authenticate.
+\newblock
+  http://stackoverflow.com/questions/2172831/how-do-a-ldap-search-authenticate-against-this-ldap-in-java.
+\newblock Zuletzt besucht: 14.01.2016.
+
+\bibitem{LDAP-CLT}
+Ldap command-line tools.
+\newblock
+  https://docs.oracle.com/cd/B10501\_01/network.920/a96579/comtools.htm\#631224.
+\newblock Zuletzt besucht: 14.01.2016.
+
+\end{thebibliography}
