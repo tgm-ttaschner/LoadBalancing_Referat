@@ -1,10 +1,6 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: document.aux
 The style file: unsrt.bst
 Database file #1: references.bib
-Warning--entry type for "LdapFlags" isn't style-file defined
+Warning--entry type for "LoadBalancing" isn't style-file defined
 --line 2 of file references.bib
-Warning--entry type for "StackoverflowAuthenticate" isn't style-file defined
---line 9 of file references.bib
-Warning--entry type for "LDAP-CLT" isn't style-file defined
---line 16 of file references.bib
-(There were 3 warnings)
+(There was 1 warning)
