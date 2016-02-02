@@ -1,0 +1,79 @@
+\documentclass[letterpaper, 12pt]{article}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEFINITIONS
+% Change those informations
+% If you need umlauts you have to escape them, e.g. for an ü you have to write \"u
+\gdef\mytitle{Dezentrale Systeme \& Systemintegration und Infrastruktur}
+\gdef\mythema{Load Balancing}
+
+\gdef\mysubject{Systemtechnik}
+\gdef\mycourse{5BHITT 2015/16, Gruppe C}
+\gdef\myauthor{Alexander K\"olbl \& Thomas Taschner }
+\gdef\myclass{5BHIT}
+
+\gdef\myversion{1.0}
+\gdef\mybegin{8. Januar 2016}
+\gdef\myfinish{\today}
+
+\gdef\mygrade{Note:}
+\gdef\myteacher{Betreuer: Thomas Micheler}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input special/preamble.tex
+
+\let\tempsection\section
+\renewcommand\section[1]{\vspace{-0.3cm}\tempsection{#1}\vspace{-0.3cm}}
+\WithSuffix\newcommand\section*[1]{\tempsection*{#1}}
+
+\let\tempsubsection\subsection
+\renewcommand\subsection[1]{\vspace{0cm}\tempsubsection{#1}\vspace{0cm}}
+
+\let\tempsubsubsection\subsubsection
+\renewcommand\subsubsection[1]{\vspace{0cm}\tempsubsubsection{#1}\vspace{0cm}}
+
+\linespread{0.94}
+
+\lhead{\mysubject}
+\chead{\bfseries\mythema}
+\rhead{27.01.2016}
+
+\lfoot{\myauthor}
+\cfoot{\myclass}
+\rfoot{\thepage}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\parindent 0pt
+\parskip 6pt
+
+\pagenumbering{Roman} 
+\input{special/title}
+
+\clearpage
+\thispagestyle{empty}
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+
+%\vspace{-0.5cm}
+
+\input sections/solution2.tex
+
+\clearpage
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\listoftables
+\lstlistoflistings
+\listoffigures
+
+
+\end{document}
