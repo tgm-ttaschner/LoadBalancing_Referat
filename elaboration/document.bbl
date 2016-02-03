@@ -1,13 +1,34 @@
 \begin{thebibliography}{1}
 
+\bibitem{LoadBalancing1}
+Liquid~Web Inc.
+\newblock Understanding load balancing.
+\newblock http://www.liquidweb.com/kb/understanding-load-balancing/.
+\newblock Zuletzt besucht: 03.02.2016.
+
+\bibitem{LoadBalancingGrafik1}
+Grafik load balancing webserver.
+\newblock
+  http://www.codeproject.com/Articles/32545/Exploring-Session-in-ASP-Net#38.
+
+\bibitem{LoadBalancing2}
+Chandra Kopparpu.
+\newblock {\em Load Balancing Servers, Firewalls and Caches}.
+\newblock Wiley, 2002.
+
+\bibitem{LoadBalancingGrafik2}
+Grafik osi schichtenmodell.
+\newblock http://jimwilsonblog.com/?tag=osi.
+
+\bibitem{LoadBalancing3}
+Rui Nataario.
+\newblock Load balancing iii.
+\newblock http://networksandservers.blogspot.co.at/2011/03/balancing-iii.html.
+\newblock Zuletzt besucht: 03.02.2016.
+
 \bibitem{LoadBalancing}
 Coole load balancing seite.
 \newblock https://link/zur/seite.
 \newblock Zuletzt besucht: 27.01.2016.
-
-\bibitem{goossens93}
-Michel Goossens, Frank Mittelbach, and Alexander Samarin.
-\newblock {\em The LaTeX Companion}.
-\newblock Addison-Wesley, Reading, Massachusetts, 1993.
 
 \end{thebibliography}
