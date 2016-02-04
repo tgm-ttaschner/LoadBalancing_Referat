@@ -9,7 +9,7 @@ Liquid~Web Inc.
 \bibitem{LoadBalancingGrafik1}
 Grafik load balancing webserver.
 \newblock
-  http://www.codeproject.com/Articles/32545/Exploring-Session-in-ASP-Net#38.
+  http://www.codeproject.com/Articles/32545/Exploring-Session-in-ASP-Net\#38.
 
 \bibitem{LoadBalancing2}
 Chandra Kopparpu.
@@ -25,10 +25,5 @@ Rui Nataario.
 \newblock Load balancing iii.
 \newblock http://networksandservers.blogspot.co.at/2011/03/balancing-iii.html.
 \newblock Zuletzt besucht: 03.02.2016.
-
-\bibitem{LoadBalancing}
-Coole load balancing seite.
-\newblock https://link/zur/seite.
-\newblock Zuletzt besucht: 27.01.2016.
 
 \end{thebibliography}

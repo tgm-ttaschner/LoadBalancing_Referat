@@ -1,8 +1,6 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: document.aux
 The style file: unsrt.bst
 Database file #1: references.bib
-Warning--entry type for "LoadBalancing" isn't style-file defined
---line 2 of file references.bib
 Warning--entry type for "LoadBalancing1" isn't style-file defined
 --line 17 of file references.bib
 Warning--entry type for "LoadBalancing3" isn't style-file defined
@@ -11,4 +9,4 @@ Warning--entry type for "LoadBalancingGrafik1" isn't style-file defined
 --line 40 of file references.bib
 Warning--entry type for "LoadBalancingGrafik2" isn't style-file defined
 --line 46 of file references.bib
-(There were 5 warnings)
+(There were 4 warnings)
