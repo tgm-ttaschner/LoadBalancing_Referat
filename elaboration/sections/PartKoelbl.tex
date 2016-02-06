@@ -114,13 +114,15 @@ Geräte sind Blackbox Produkte, welche die notwendige Hardware und Software für
 \subsection{OSI Schichtenmodell}
 \label{sec:OSI Schichtenmodell}
 Das OSI Schichtenmodell ist der Standard, der definiert wie unterschiedliche Geräte oder Computer miteinander kommunizieren können und bildet die Grundlage von Load Balancing. Jeder Layer kann mit demselben Layer (Peer) eines anderen Rechners kommunizieren. Zusätzlich kann der Layer mit den Layern direkt über und unter ihm Informationen austauschen. \cite{LoadBalancing2}
+
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=1\linewidth]{images/loadbalancing3.jpg}
+		\includegraphics[width=0.8\linewidth]{images/loadbalancing3.jpg}
 		\caption{OSI Modell \cite{LoadBalancingGrafik2}}
 		\label{Grafik}
 	\end{center}
 \end{figure}
+
 \subsection{Load Balancing auf verschiedenen Layern}
 \label{sec:Load Balancing auf verschiedenen Layern}
 Layer-2 Load Balancing (auch als Link- oder Portaggregation bezeichnet) verbindet zwei oder mehrere Links zu einer leistungsfähigeren logischen Verknüpfung. Aggregierte Verknüpfungen stellen zusätzlich Redundanz und Fehlertoleranz, wenn jeder der einzelnen aggregierten Links einen unterschiedlichen physikalischen Pfad folgt.
@@ -128,43 +130,42 @@ Layer-2 Load Balancing (auch als Link- oder Portaggregation bezeichnet) verbinde
 Layer 4 Load Balancing ist für die Verteilung der Anfragen zu den Servern auf Transport Layer Ebene zuständig, dazu gehören die Transportprotokolle TCP, UDP und SCTP. Z.B. ein normaler Router sendet eintreffende Pakete einfach an die geeignete IP Adresse, doch ein Layer 4 Router verteilt die Anfragen der Clients, die nur die IP-Adresse eines Services wissen, an alle Server,  auf denen der Service läuft, bestmöglich. 
 
 Das Konzept von Layer 7 (auch als Application-Level Load Balancing bezeichnet) ist die Lastenverteilung bezogen auf den Content-Typ (z.B. Scripts wie HTML, CSS, etc.) der Client-Anfrage. Geräte, die Layer 7 Load Balancing betreiben können, heißen Application Delivery Controllers (ADC). Da der Load Balancing Server weiß,  was der Client  für einen Content-Typ haben will, kann er abwägen,  welcher der vorhanden Server am besten mit dieser Anfrage umgehen kann, da jeder Content-Typ spezielle Anforderungen an Hardware und Software hat. \cite{LoadBalancing3}
+\pagebreak
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.4\linewidth]{images/loadbalancing4.jpg}
+		\includegraphics[width=0.3\linewidth]{images/loadbalancing4.jpg}
 		\caption{Konzept Layer 7 Load Balancing \cite{LoadBalancing2}}
 		\label{Grafik}
 	\end{center}
 \end{figure}
 
 \textbf{Layer 7 Switching} \\
-
 Layer 7 Switching (auch bezeichnet als Request oder Application Switching) verteilt Anfragen basierend auf Layer 7 Daten. Ein Layer 7 Switch ist für die Außenwelt ein Virtueller Server der Anfragen annimmt und diese Aufgrund von Richtlinien der Applikationen an die Server verteilt. Das heißt man kann die Server für spezielle Arten von Content optimieren, z.B. ein Server ist für Bilder optimiert und ein weiterer ist für Skriptsprachen optimiert. Im Unterschied zu Load Balancing muss nicht jeder Server alle Arten von Content zur Verfügung stellen, sondern kann sich auf eine Art von Content spezialisieren um die bestmögliche Performance zu erreichen. \cite{LoadBalancing3}
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.4\linewidth]{images/loadbalancing5.jpg}
+		\includegraphics[width=0.3\linewidth]{images/loadbalancing5.jpg}
 		\caption{Layer 7 Switching \cite{LoadBalancing2}}
 		\label{Grafik}
 	\end{center}
 \end{figure}
 
 \textbf{Layer 7 Load Balancing} \\
-
 Verbindet man das Load Balancing Konzept von Layer 7 mit Layer 7 Switching so erhält man Layer 7 Load Balancing. Layer 7 Switching allein reicht nicht aus, da wenn ein Server ausfällt, ein Typ von Content nicht mehr zur Verfügung gestellt werden kann. Deswegen erstellt man Pools von Servern, die auf einen Typ von Content spezialisiert sind. So ist man vor Ausfällen geschützt. 
-
+\pagebreak
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.6\linewidth]{images/loadbalancing6.jpg}
+		\includegraphics[width=0.3\linewidth]{images/loadbalancing6.jpg}
 		\caption{Layer 7 Load Balancing \cite{LoadBalancing2}}
 		\label{Grafik}
 	\end{center}
 \end{figure}
-\pagebreak
 
 Layer 7 Load Balancing erhöht die Effizienz der Applikationsinfrastruktur. Dadurch dass der ADC den Content-Typ der Anfrage weiß kann er diese an den Server weiterleiten, der am besten mit diesem Content umgehen kann aufgrund der Serverhardware. \cite{LoadBalancing3}
+
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.8\linewidth]{images/loadbalancing7.jpg}
+		\includegraphics[width=0.55\linewidth]{images/loadbalancing7.jpg}
 		\caption{Layer 7 Load Balancing \cite{LoadBalancing2}}
 		\label{Grafik}
 	\end{center}
@@ -178,7 +179,7 @@ Bevor man sich den Paketfluss bei Load Balancing anschaut, sollte man sich kurz 
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.8\linewidth]{images/loadbalancing9.jpg}
+		\includegraphics[width=0.6\linewidth]{images/loadbalancing9.jpg}
 		\caption{TCP Three-Way Handshake \cite{LoadBalancing2}}
 		\label{Grafik}
 	\end{center}
