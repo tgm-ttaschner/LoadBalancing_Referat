@@ -108,6 +108,93 @@ Geräte sind Blackbox Produkte, welche die notwendige Hardware und Software für
 \item Sheduling Algorithmus konfigurieren, nach dem die Last verteilt wird \cite{LoadBalancing2}
 \end{enumerate}
 
+\section{Algorithmen zur Lastenverteilung}
+\label{sec:Algorithmen zur Lastenverteilung}
+Load Balancer können verschiedene Algorithmen verwenden, um Lasten jedem Server in einer Serverfarm zuzuweisen. Die folgenden Algorithmen können hierzu verwendet werden.
+
+\subsection{Round-Robin}
+\label{sec:Round-Robin}
+Round-Robin ist das einfachste Verfahren zur Lastenverteilung.
+Ein Load Balancer weist jedem Server der Reihe nach eine Verbindung zu.
+Dieses Verfahren kann eine gleichmäßige Verteilung der Last nicht sicherstellen, da jede Verbindung über unterschiedliche lange Zeiträume bestehen kann. Infolgedessen können manche Server mehr gleichzeitig aktive Verbindungen haben, als andere. \cite{LoadBalancing2}
+Da bei diesem Algorithmus dieser Aspekt nicht bedacht wird, kann eine schlechte Lastverteilung auftreten. Hardwaretechnisch schwächer ausgestattete Handware könnte so mit Anfragen überladen werden.
+
+Da Round-Robin eine sehr einfache Methode zur Lastverteilung ist, werden sehr wenige Ressourcen seitens des Load Balancers benötigt. Infolgedessen ist der Algorithmus nur dann sehr effektiv, wenn der Lastverteilungsalgorithmus viel Rechenzeit benötigt.
+Soll beispielsweise aus 1000 Servern der nächstbeste Server ausgewählt werden, so würde dies bei anderen Algorithmen einen erhöhten Rechenaufwand seitens der Load Balancers bedeuten. Dieser Algorithmus würde sich besonders in Situation anbieten, in denen die Art, und daraus resultierende Last am Server, und Dauer der Anfrage in etwa gleich bleiben, da so eine gleichmäßige Verteilung gewährleistet werden kann. \cite{LoadBalancing2}
+
+\subsection{Least Connections}
+\label{sec:Least Connections}
+Jede neue Anfrage wird dem Server mit den geringsten gleichzeitig aktiv vorhandenen Verbindungen zugesandt. Der Load Balancer muss hierbei die Anzahl dieser Verbindungen jedes Servers jederzeit festhalten. Diese Methode ist eine der effektivsten und beliebtesten in verschiedenen Anwendungsbereichen, wie beispielsweise DNS oder dem Web. Der Hauptgrund hierfür sind das einfache Verstehen und Anwenden der Methode. \cite{LoadBalancing2}
+
+Least Connections kann dann von Nutzen sein, wenn zwei oder mehr Server mit gleicher Ausstattung unterschiedlich stark belastet werden. Dies ließe sich beispielsweise auf eine unterschiedliche Dauer von Sessions der Benutzer zurückzuführen.
+\cite{WeightedLoadBalancingGrafik}
+
+\subsection{Weighted Distribution}
+\label{sec:Weighted Distribution}
+Da verschiedene Server hardwaretechnisch verschieden ausgestattet sein können, kann mithilfe dieser Methode eine Angabe der Leistung der einzelnen Server in Relation zueinander erfolgen, indem jedem Server eine gewisse Gewichtung zugewiesen wird. Der Load Balancer kann so beispielsweise bei einer durch einen Serveradministratoren festgelegten Gewichtung von 5-1 dem 1. Server 5 mal so viele Anfragen zukommen lassen, wie dem 2. Die Verteilung ist der Abbildung 4 zu entnehmen.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{images/weighted_round_robin.png}
+		\caption{Weighted Distribution anhand von Weighted Round-Robin \cite{WeightedLoadBalancingGrafik}}
+		\label{Weighted Round-Robin}
+	\end{center}
+\end{figure}
+
+In der Praxis wird diese Methode in Kombination mit anderen Methoden, wie Least Connections oder Round-Robin angewandt.
+Sollen nun weitere Server hinzugefügt werden im Fall von Weighted Round-Robin die Anfragen wie gewohnt der Reihe nach gewichtet verteilt. Im Fall von Weighted Least Connections ist lediglich auf die Anzahl der aktuell verbundenen Clients und die Gewichtung zu achten. Um eine gerechte Verteilung der Last zu gewährleisten, wird die Anzahl der aktiven Verbindungen durch die Gewichtung dividiert.
+
+Diese Methode ist besonders dann geeignet, wenn bereits bestehende, womöglich leistungsschwächere Hardware mit leistungsstärkerer kombiniert werden soll.
+\cite{LoadBalancing2}
+
+\subsection{Response Time}
+\label{sec:Response Time}
+In der Annahme, dass eine schnelle Reaktion eines Servers eine gute Performance zur Folge hat, wird die Reaktionszeit eines Servers vom Load Balancer gemessen und anhand dieser ein Server ausgewählt. Hierzu werden entweder HTTP GET oder TCP SYN (Synchronize) Anfragen versandt und die Zeit gemessen, die vergeht, bis eine HTTP GET Antwort oder TCP SYN ACK (Synchronize Acknowledge) von diesem Server zurückgekommen ist. \cite{LoadBalancing2}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{images/LoadBalancing_Response_Time.png}
+		\caption{Messen der Zeit, die der Server für eine Antwort benötigt \cite{LoadBalancing2}}
+		\label{ResponseTime}
+	\end{center}
+\end{figure}
+
+Für eine effiziente Lastenverteilung muss diese Antwortzeit über einen längeren Zeitraum gemessen werden, da die aktuellen Zeiten nicht mehr den Zeiten von vor beispielsweise einer Stunde entsprechen müssen. Der Load Balancer kann, basierend auf vergangenen, aber auch aktuellen Messungen, berechnen, welcher Server als Nächstes am Schnellsten antworten könnte.
+
+Aufgrund der Komplexität dieser Methode, könnte diese Methode alleine nicht die beste Möglichkeit zur Lastenverteilung bieten. Der Algorithmus kann hingegen in Kombination mit anderen Load Balancing Methoden funktionieren. \cite{LoadBalancing2}
+
+\subsection{Server-Probe}
+\label{sec:Server-Probe}
+Auf jedem Server rennt im Hintergrund ein Programm, welches die aktuelle Auslastung des Servers an den Load Balancer in regelmäßigen Zeitabständen weiterleitet. Auf diese Weise hat der Load Balancer stets Zugriff auf Daten, wie die aktuelle Auslastung der CPU, aber auch den verfügbaren Arbeits- und Festplattenspeicher.
+Ein wesentlicher Nachteil dieser Methode ist die Entwicklung und Installation von zusätzlicher Software, die mit der auf dem Server laufenden Applikation lauffähig sein muss, ohne die Anwendung selber zu beeinflussen. Es ist auch ungewiss, ob solche Messungen die genaue Serverauslastung dokumentieren, da es einen leistungstechnischen Flaschenhals auch an anderer Stelle geben kann, wie beispielsweise die Zugriffsgeschwindigkeit der Festplatte des Servers auf die Daten oder den Datendurchsatz der Netzwerkkarte. \cite{LoadBalancing2}
+
+\subsection{Kombiniert}
+\label{sec:Kombiniert}
+Die Kombination von zwei oder mehreren Methoden kann eine besseres Erfassen der Serverlast ermöglichen. Hierzu können beispielsweise die Methoden Response Time und Least Connections zusammen verwendet werden. Die Verfahren können vom Load Balancer wieder mit entsprechender Gewichtung verwendet werden. \cite{LoadBalancing2}
+
+\subsection{Server Load Thresholds}
+\label{sec:Server Load Thresholds}
+Server haben die Tendenz dazu bis zu einem gewissen Punkt bzw. Schwellenwert leistungstechnisch gut zu funktionieren. Sollte dieser Schwellenwert überschritten werden, so wird dieser Server seine Daten aus dem Arbeitsspeicher auf der Festplatte auslagern, was einen signifikanten Einbruch in der Leistung des Servers zur Folge hat.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/LoadBalancing_LoadThreshold.png}
+		\caption{Optimieren der Serverleistung \cite{LoadBalancing2}}
+		\label{ServerTheshold}
+	\end{center}
+\end{figure}
+
+Um den Server vor weiteren neuen Zugriffen zu schützen (und ihn nicht noch weiter mit neuen Anfragen zu belasten) wird ein Schwellenwert seitens des Load Balancers festgelegt, der knapp unter 
+
+\subsection{Zufällig}
+\label{sec:Zufällig}
+Der zu verwendende Server wird von einem Zufallszahlengenerator am Load Balancer festgelegt. Sollten nun viele Anfragen zustandekommen, so werden die Anfragen zufällig, aber gleichmäßig verteilt.
+Diese Methode kann besonders dann verwendet werden, wenn die Server eine gleiche oder sehr ähnliche Hardwarekonfiguration haben. \cite{WeightedLoadBalancingGrafik}
+
+\subsection{Gegenüberstellung}
+\label{sec:Gegenüberstellung}
+
+
 \section{Networking Grundlagen}
 \label{sec:Networking Grundlagen}
 

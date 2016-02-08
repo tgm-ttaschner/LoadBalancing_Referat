@@ -10,15 +10,17 @@ Liquid~Web Inc.
 Grafik load balancing webserver.
 \newblock
   http://www.codeproject.com/Articles/32545/Exploring-Session-in-ASP-Net\#38.
+\newblock Zuletzt besucht: 03.02.2016.
 
 \bibitem{LoadBalancing2}
 Chandra Kopparpu.
 \newblock {\em Load Balancing Servers, Firewalls and Caches}.
 \newblock Wiley, 2002.
 
-\bibitem{LoadBalancingGrafik2}
-Grafik osi schichtenmodell.
-\newblock http://jimwilsonblog.com/?tag=osi.
+\bibitem{WeightedLoadBalancingGrafik}
+Comparing load balancing algorithms.
+\newblock http://www.jscape.com/blog/load-balancing-algorithms.
+\newblock Zuletzt besucht: 08.02.2016.
 
 \bibitem{LoadBalancing3}
 Rui Nataario.
