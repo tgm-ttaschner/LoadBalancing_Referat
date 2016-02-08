@@ -275,7 +275,7 @@ Bevor man sich den Paketfluss bei Load Balancing anschaut, sollte man sich kurz 
 \pagebreak
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.5\linewidth]{images/loadbalancing10.jpg}
+		\includegraphics[width=0.45\linewidth]{images/loadbalancing10.jpg}
 		\caption{TCP Three-Way Handshake \cite{LoadBalancing2}}
 		\label{TCP Three-Way Handshake_2}
 	\end{center}
@@ -290,6 +290,39 @@ Der Client erzeugt eine TCP Verbindung, sendet eine http-Anfrage, erhält eine R
 \end{enumerate}
 Bevor dieses TCP SYN Paket erhalten wird, entscheidet der Load Balancer z.B. die Anfrage an Server RS2 weiterzuleiten. Damit der Server RS2 das Paket verarbeiten kann, muss die Destination IP Adresse die IP Adresse des Servers RS2 sein. Das heißt der Load Balancer ändert die virtuelle IP auf die IP Adresse des Servers RS2 bevor das Paket weitergeleitet wird.   
 Wenn der User die Domain dieser Seite aufruft, macht der Browser eine DNS Anfrage um die virtuelle IP der Domain zu bekommen. Der Browser vom Client sendet ein TCP SYN Paket um eine neue TCP Verbindung zu erzeugen. Wenn der Load Balancer dieses TCP SYN Paket erhält identifiziert er dieses als Kandidat für Load Balancing (da das Paket eine virtuelle IP enthält). Da diese Verbindung neu ist und noch keine Einträge im Session Table vorhanden sind, identifiziert der Load Balancer die zwei Server RS1 und RS2 als mögliche Kandidaten für eine neue Verbindung. Aufgrund des ausgewählten Scheduling Algortihmus entscheidet sich der Load Balancer welcher Server besser geeignet ist. Nehmen wir in diesen Fall an das Server RS2 ausgewählt wurde. Sobald der Zielserver ausgewählt wurde, erzeugt der Load Balancer einen neuen Session Eintrag im Session Table und ändert die Destination IP- und MAC Adresse auf jene von Server RS2. Wenn RS2 sich mit TCP SYN ACK rückmeldet, erreicht das Paket den Load Balancer (Source IP von RS2, Destination IP von Client). Danach ersetzt der Load Balancer die IP Adresse von RS2 mit der virtuellen IP und leitet das Paket an den Router weiter und schließlich zum Client. Wenn die Verbindung mit FIN oder RESET beendet wird, löscht der Load Balancer den Session Eintrag aus dem Session Table. \cite{LoadBalancing2}
+
+\subsection{Health Checks}
+\label{sec:Health Checks}
+
+Health Checks sind notwendig, damit der Load Balancer nicht Anfragen an fehlerhafte Server versendet. Das kann auch bedeuten das der Server zwar verfügbar ist, jedoch aber die Applikation fehlerhaft ist oder das die Applikation korrupten Content zur Verfügung stellt. Load Balancer können diese Fehler erkennen und die Anfragen zu anderen funktionierenden Servern weiterleiten ohne manuelles Eingreifen des Administrators. Es gibt zwei Kategorien von Health Checks, nämlich die sogenannten in-band- und out-of-band checks. Bei in-band-checks kontrolliert der Load Balancer einfach den normalen Netzwerkverkehr um zu kontrollieren, ob der Server intakt ist. Out-of-band Health Checks jedoch werden explizit vom Load Balancer durchgeführt.\vspace{5mm}
+
+\textbf{Grundlegende Health Checks} \\
+
+Load Balancer können zumindest bestimmte Netzwerk-Level Checks auf verschiedenen OSI-Layern durchführen. Bei einem Layer 2 Health Check wird eine Address Resolution Protocol (ARP) Anfrage verwendet, um die MAC Adresse einer gegebenen IP Adresse herauszufinden. Der Server wird auf diese ARP Anfrage reagieren, es sei denn er funktioniert nicht. Bei einem Layer 3 Health Check wird die reale IP-Adresse des Servers gepingt um herauszufinden ob der Server läuft. Bei Layer 4 Health Checks versucht der Load Balancer sich zu einem spezifischen TCP oder UDP Port zu verbinden auf der eine Applikation läuft. Der Load Balancer sendet eine TCP SYN Anfragen zu dem spezifischen Port und wartet auf eine TCP SYN ACK Rückmeldung. Falls der Load Balancer diese Rückmeldung nicht erhält, wird der Port als down markiert. Jeder Port wird vom Load Balancer unabhängig behandelt, so kann es sein das ein Port down ist, alle anderen jedoch erreichbar sind. Sämtliche Applikationen die auf erreichbaren Ports laufen sind weiterhin verfügbar, der Load Balancer markiert nur Applikationen als down, die nicht verfügbar sind.\vspace{5mm}
+
+\textbf{Applikationsspezifische Health Checks} \\
+
+Load Balancer können auch Layer 7 Health Checks für weit verbreitete Applikationen durchführen.  Bei Webserver kann der Load Balancer eine HTTP GET Anfragen für eine URL versenden und durch zusätzliche Konfiguration die HTTP Rückgabecodes kontrollieren, so kann z.B. ein 404 Fehler entdeckt werden. Bei DNS kann der Load Balancer DNS Lookup Abfragen versenden (für das Auflösen von Domainnamen zu IP-Adresse) um die Resultate mit dem erwarteten Ergebnis zu vergleichen.\vspace{5mm}
+
+\textbf{Applikationsabhängigkeiten} \\
+
+Bei Verwendung von mehreren Applikationen die voneinander abhängig sind kann der Load Balancer das Feature Port Grouping verwenden, wodurch mehrere TCP oder UDP Ports zu Gruppen zusammengefasst werden. Wenn nur einer dieser Ports nicht funktioniert, wird alle Applikationen der Gruppe als down makiert.\vspace{5mm}
+\pagebreak
+
+\textbf{Content Checks} \\
+
+Um den Inhalt zu kontrollieren gibt es mehrere Möglichkeiten: 
+\begin{list}{•}{}
+\item Nach Keywords suchen
+\item Checksum berechen und mit dem konfigurierten Wert vergleichen
+\item Load Balancer konfigurieren, sodass er HTTP GET Anfragen für eine bestimmte URL versendet. Ein Script/Programm das am Server läuft führt eine Vielzahl an Health Checks durch. Falls alle Health Checks erfolgreich waren, erzeugt das Script/Programm die vorher konfigurierte URL, sonst wird diese gelöscht. \cite{LoadBalancing2}
+\end{list}
+
+\subsection{Sicherheit}
+\label{sec:Sicherheit}
+
+Da Load Balancer das Front End der Server Farm sind, können Load Balancer die Server vor Angriffen schützen. Viele Load Balancing Produkte sind mittlerweile schon mit mehreren Sicherheitsfeatures ausgestattet. Den Servern der Server Farm können private IP Adresse vergeben werden, um direkten Zugriff von außen zu unterbinden. Um mit Hosts, die eine private IP Adresse haben, zu kommunizieren, muss man zuerst über ein Gerät geleitet werden, welches NAT durchführt. \cite{LoadBalancing2}    
+\pagebreak
 
 \section{URL Switching}
 \label{sec:URL Switching}
