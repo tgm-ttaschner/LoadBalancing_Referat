@@ -23,7 +23,7 @@ Im Webhostingbereich wird Load Balancing typischerweise für die Verteilung von 
 \subsection{Beispiel Website}
 \label{sec:Beispiel Website}
 Anhand dieses kleinen Beispiels einer Website möchte ich die zwei oben genannten Haupteinsatzgründe für Load Balancing veranschaulichen. 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.4\linewidth]{images/loadbalancing12.jpg}
 		\caption{Aufbau Website \cite{LoadBalancingGrafik2}}
@@ -33,11 +33,11 @@ Anhand dieses kleinen Beispiels einer Website möchte ich die zwei oben genannte
 
 Mögliche Probleme bei einer Website: zu hohe Anzahl an Anfragen für Webserver oder Datenbank- bzw. Webserver fällt aus.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.4\linewidth]{images/loadbalancing1.jpg}
 		\caption{Load Balancing Beispiel \cite{LoadBalancingGrafik1}}
-		\label{Load Balancing Beispiel}
+		\label{Load_Balancing_Beispiel}
 	\end{center}
 \end{figure}
 
@@ -66,7 +66,7 @@ Der Load Balancer kontrolliert kontinuierlich die Verfügbarkeit aller Server un
 \label{sec:Load Balancing Applikationen}
 \textit{"With the advent of the Internet, the network now occupies center stage. As the Internet connects the world and the intranet becomes the operational backbone for businesses, the IT infrastructure can be thought of as two types of equipment: computers that function as a client and/or a server, and switches/routers that connect the The Network Environment computers. Conceptually, load balancers are the bridge between the servers and the network, as shown in the graphic below. On one hand, load balancers understand many higher layer protocols, so they can communicate with servers intelligently. On the other, load balancers understand networking protocols, so they can integrate with networks effectively"}  \cite{LoadBalancing2}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.6\linewidth]{images/loadbalancing2.jpg}
 		\caption{Load Balancing einer Serverfarm \cite{LoadBalancing2}}
@@ -103,7 +103,7 @@ Geräte sind Blackbox Produkte, welche die notwendige Hardware und Software für
 \subsection{Konfiguration eines Load Balancers}
 \label{sec:Konfiguration eines Load Balancers}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.6\linewidth]{images/loadbalancing8.jpg}
 		\caption{Load Balancing Konfiguration \cite{LoadBalancing2}}
@@ -143,7 +143,7 @@ Least Connections kann dann von Nutzen sein, wenn zwei oder mehr Server mit glei
 \label{sec:Weighted Distribution}
 Da verschiedene Server hardwaretechnisch verschieden ausgestattet sein können, kann mithilfe dieser Methode eine Angabe der Leistung der einzelnen Server in Relation zueinander erfolgen, indem jedem Server eine gewisse Gewichtung zugewiesen wird. Der Load Balancer kann so beispielsweise bei einer durch einen Serveradministratoren festgelegten Gewichtung von 5-1 dem 1. Server 5 mal so viele Anfragen zukommen lassen, wie dem 2. Die Verteilung ist der Abbildung 4 zu entnehmen.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{images/weighted_round_robin.png}
 		\caption{Weighted Distribution anhand von Weighted Round-Robin \cite{WeightedLoadBalancingGrafik}}
@@ -161,7 +161,7 @@ Diese Methode ist besonders dann geeignet, wenn bereits bestehende, womöglich l
 \label{sec:Response Time}
 In der Annahme, dass eine schnelle Reaktion eines Servers eine gute Performance zur Folge hat, wird die Reaktionszeit eines Servers vom Load Balancer gemessen und anhand dieser ein Server ausgewählt. Hierzu werden entweder HTTP GET oder TCP SYN (Synchronize) Anfragen versandt und die Zeit gemessen, die vergeht, bis eine HTTP GET Antwort oder TCP SYN ACK (Synchronize Acknowledge) von diesem Server zurückgekommen ist. \cite{LoadBalancing2}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{images/LoadBalancing_Response_Time.png}
 		\caption{Messen der Zeit, die der Server für eine Antwort benötigt \cite{LoadBalancing2}}
@@ -186,7 +186,7 @@ Die Kombination von zwei oder mehreren Methoden kann eine besseres Erfassen der 
 \label{sec:Server Load Thresholds}
 Server haben die Tendenz dazu bis zu einem gewissen Punkt bzw. Schwellenwert leistungstechnisch gut zu funktionieren. Sollte dieser Schwellenwert überschritten werden, so wird dieser Server seine Daten aus dem Arbeitsspeicher auf der Festplatte auslagern oder der Prozessor überlastet sein, was einen signifikanten Einbruch in der Leistung des Servers zur Folge hat.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/LoadBalancing_LoadThreshold.png}
 		\caption{Optimieren der Serverleistung \cite{LoadBalancing2}}
@@ -228,7 +228,7 @@ In der Praxis kommt es ganz auf die Hardwareausstattung der verwendeten Server u
 Ein Cache ist ein schneller Zwischenspeicher, in dem häufig aus dem Internet abgerufene Dateien gespeichert werden. Es soll durch ein Zwischenspeichern von Daten die Reaktionszeit auf eine Anfrage reduziert werden. Hierbei kann auch Bandbreite gespart werden, da die Ressource, sofern sie erneut benötigt wird, nicht vom ursprünglichen Quellserver angefragt werden muss, sondern aus dem Cache geladen werden kann.
 Anhand der folgenden Grafik soll die Funktionsweise eines Caches erklärt werden:
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/Cache_Funktionsweise.png}
 		\caption{Funktionsweise eines Caches, Zwischenspeichern einer Grafik \cite{LoadBalancing2}}
@@ -258,7 +258,7 @@ Auf Clientseite sollen eine raschere Antwortzeit und eine Bandbreitenersparnis e
 \label{sec:Client: Forward Proxy}
 Hierbei wird explizit ein Cache-Server als Proxy einer Gruppe von Clients zugewiesen. Jeder Client muss in seinem Browser eine entsprechende Konfiguration vornehmen, um den Proxy Server verwenden zu können. Da der Proxy Anfragen im Namen des Clients stellt, können Netzwerkadministratoren nur den Proxy-Servern einen Zugriff ins Internet erlauben, was eine erhöhte Netzwerksicherheit zur Folge hat, besonders, da der Server, von dem der Content geladen wird, nur die IP-Adresse vom Cache-Server sieht.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/Forward_Proxy.png}
 		\caption{Funktionsweise von Forward Proxy Load Balancing \cite{LoadBalancing2}}
@@ -273,7 +273,7 @@ Um das Problem der Skalierbarkeit und Verfügbarkeit zu lösen, wird noch ein Lo
 \label{sec:Server: Reverse Proxy}
 Hierbei wird ein Cache-Server vor die Webserver geschaltet, der bei einem cache-miss direkt vor Ort die benötigten Inhalte der Webseite anfordern kann. Wichtig dabei ist, dass die Domain der Webseite nicht mehr auf die IP des Webservers, sondern des Cache-Servers zeigt.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/Reverse_Proxy.png}
 		\caption{Funktionsweise von Reverse Proxy Load Balancing \cite{LoadBalancing2}}
@@ -290,7 +290,7 @@ Queues (Warteschlangen) sind ein Möglichkeit, um Schreibvorgänge effizient zu 
 \cite{Queues}
 
 Die folgende Grafik visualisiert ein System ohne Queues:
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/synchronousRequest.png}
 		\caption{System ohne Queues \cite{Queues}}
@@ -300,11 +300,11 @@ Die folgende Grafik visualisiert ein System ohne Queues:
 
 Die Clients müssen auf eine Antwort des Servers warten, bevor sie mit ihrer Tätigkeit fortfahren können. Dieses synchrone Verhalten vermindert die Leistung des Clients sehr. Die Lösung für dieses Problem sind Queues. Sie trennen die Anfragen des Clients von der eigentlichen Tätigkeit, die vom Server verrichtet werden soll.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/queues.png}
 		\caption{System ohne Queues \cite{Queues}}
-		\label{System_ohne_Queues}
+		\label{System_mit_Queues}
 	\end{center}
 \end{figure}
 
@@ -319,7 +319,7 @@ Der Client bekommt eine Bestätigung, dass der Task erhalten wurde und er kann i
 \label{sec:Mega Proxy Session}
 Die Mega Proxy Session, auch bekannt als Mega Proxy Problem tritt auf, wenn die korrekte IP-Adresse eines Clients nicht ermittelbar ist. Dieses Problem kann auftreten, wenn sich der Client hinter einem Proxy-Server befindet und dieser die IP-Adresse des Clients auf seine eigene ändert und der Zielserver nur mehr diese sehen kann. Die meisten ISP und Firmen haben einen oder mehrere Proxy-Server in ihrem Netzwerk, um die Identität des Clients zu verschleiern. Dabei kann es zu einem Problem mit der Sitzungspersistenz und in Folge dessen auch zu einem Load-Balancing Problem beim Load-Balancer kommen. Um dieses Problem vermeiden zu können, kann der Load-Balancer die Clients nicht mehr nur auf IP-Basis identifizieren. Das Load-Balancing Konzept muss verändert werden.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/MegaProxy1.png}
 		\caption{Sitzungspersistenzproblem bei Megaproxy \cite{LoadBalancing2}}
@@ -331,7 +331,7 @@ Die virtuelle Quell-IP-Adressen könnten gruppiert und als ein Server behandelt 
 Einerseits wird das Problem bezüglich der Sitzungspersistenz gelöst, andererseits kann das Lastverteilungskonzept fehlschlagen, da alle Anfragen des Proxy-Netzwerkes an den gleichen Server weitergeleitet werden.
 \cite{LoadBalancing2}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/MegaProxy2.png}
 		\caption{Load-Balancing Problem bei Megaproxy \cite{LoadBalancing2}}
@@ -341,7 +341,7 @@ Einerseits wird das Problem bezüglich der Sitzungspersistenz gelöst, andererse
 
 \section{Apache Hadoop}
 \label{sec:Apache Hadoop}
-Apache Hadoop ist ein Framework, welches das verteilte Verarbeiten von großen Datenmengen, die auf vielen Clustern verstreut sein können. Das Design erlaubt es, dass sowohl ein paar wenige, aber auch mehrere 1000 Server mühelos verwendet werden können. Das Framework selbst wurde so entworfen, dass Fehler auf Applikationsebene entdeckt und beseitigt werden können, was wiederum eine hohe Verfügbarkeit des Services auf dem Cluster sicherstellt.
+Apache Hadoop ist ein Framework, welches das verteilte Verarbeiten von großen Datenmengen, die auf vielen Clustern verstreut sein können. Das Design erlaubt es, dass sowohl ein paar wenige, aber auch mehrere 1000 Server mühelos verwendet werden können. Das Framework selbst wurde so entworfen, dass Fehler auf Applikationsebene entdeckt und beseitigt werden können, was wiederum eine hohe Verfügbarkeit des Services auf dem Cluster sicherstellt. \cite{Hadoop1}
 
 \subsection{Module}
 \label{sec:Module}
@@ -353,25 +353,12 @@ Apache Hadoop ist ein Framework, welches das verteilte Verarbeiten von großen D
 
 \textbf{Hadoop MapReduce: } Ein System, welches auf YARN basiert und zur paralellen Verarbeitung von großen Datenmengen dient
 
+\cite{Hadoop1}
+
 \subsection{Einsatzgebiete}
 \label{sec:Einsatzgebiete}
-Hadoop wird unter anderem von
-
-\textbf{Adobe}
-
-\textbf{AOL}
-
-\textbf{EBay}
-
-\textbf{Facebook}
-
-\textbf{Google}
-
-\textbf{Hulu}
-
-\textbf{IBM}
-
-und vielen anderen Firmen verwendet.
+Hadoop wird unter anderem von, Adobe, AOL, EBay, Facebook, Google, Hulu, IBM und vielen anderen Firmen verwendet.
+\cite{Hadoop2}
 
 \section{Networking Grundlagen}
 \label{sec:Networking Grundlagen}
@@ -380,7 +367,7 @@ und vielen anderen Firmen verwendet.
 \label{sec:OSI Schichtenmodell}
 Das OSI Schichtenmodell ist der Standard, der definiert wie unterschiedliche Geräte oder Computer miteinander kommunizieren können und bildet die Grundlage von Load Balancing. Jeder Layer kann mit demselben Layer (Peer) eines anderen Rechners kommunizieren. Zusätzlich kann der Layer mit den Layern direkt über und unter ihm Informationen austauschen. \cite{LoadBalancing2}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{images/loadbalancing3.jpg}
 		\caption{OSI Modell \cite{LoadBalancingGrafik2}}
@@ -396,7 +383,7 @@ Layer 4 Load Balancing ist für die Verteilung der Anfragen zu den Servern auf T
 
 Das Konzept von Layer 7 (auch als Application-Level Load Balancing bezeichnet) ist die Lastenverteilung bezogen auf den Content-Typ (z.B. Scripts wie HTML, CSS, etc.) der Client-Anfrage. Geräte, die Layer 7 Load Balancing betreiben können, heißen Application Delivery Controllers (ADC). Da der Load Balancing Server weiß,  was der Client  für einen Content-Typ haben will, kann er abwägen,  welcher der vorhanden Server am besten mit dieser Anfrage umgehen kann, da jeder Content-Typ spezielle Anforderungen an Hardware und Software hat. \cite{LoadBalancing4}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 		\includegraphics[width=0.3\linewidth]{images/loadbalancing4.jpg}
 		\caption{Konzept Layer 7 Load Balancing \cite{LoadBalancing3}}

@@ -17,4 +17,8 @@ Warning--entry type for "WeightedLoadBalancingGrafik" isn't style-file defined
 --line 54 of file references.bib
 Warning--entry type for "Queues" isn't style-file defined
 --line 61 of file references.bib
-(There were 8 warnings)
+Warning--entry type for "Hadoop1" isn't style-file defined
+--line 68 of file references.bib
+Warning--entry type for "Hadoop2" isn't style-file defined
+--line 75 of file references.bib
+(There were 10 warnings)
