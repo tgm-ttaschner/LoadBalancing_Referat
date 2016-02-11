@@ -4,7 +4,8 @@
 \label{sec:Einleitung}
 Load Balancing ist kein neues Konzept im Server- und Netzwerkbereich. Viele Produkte, wie z.B. Router die Netzwerkverkehr über verschiedene Netzwerk Ressourcen zum gleichen Ziel verteilen, können unterschiedliche Arten des Load Balancing durchführen. Im Gegensatz zum Router wird bei Server Load Balancing der Netzwerkverkehr über verschiedene Server Ressourcen verteilt. Anfangs wurden Load Balancer als reine Lastenverteiler verwendet, doch heute sind Load Balancer schon so weit entwickelt, dass sie zusätzliche Funktionen wie Healthchecks, Optimierung von Datenflüssen, etc. zur Verfügung stellen.
 
-Im Webhostingbereich wird Load Balancing typischerweise für die Verteilung von http-Verkehr auf mehrere Server (Nodes), die als Web Front-End agieren, eingesetzt. Der Load Balancer beurteilt die Antwortzeiten und Auslastung der einzelnen Server und verteilt basierend auf dieser Beurteilung die Anfragen. Durch die Verteilung des Dienstes auf mehrere Server schützt man sich zusätzlich vor Hardwareausfall, da bei Ausfall eines Server Nodes der Netzwerkverkehr einfach über andere Nodes erfolgen kann. Das primäre Ziel ist es, den Netzwerkverkehr bei hoher Nachfrage auf alle vorhandenen Nodes aufzuteilen, um die bestmögliche Performance zu gewährleisten. Der User weiß normalerweise nichts über vorhandene Backend- bzw. Backupserver, für ihn scheint es so als ob nur ein Server hinter einem Dienst steht. \cite{LoadBalancing1}
+Im Webhostingbereich wird Load Balancing typischerweise für die Verteilung von http-Verkehr auf mehrere Server (Nodes), bei dem der Load Balancer als Web Front-End agiert, eingesetzt. Der Load Balancer beurteilt die Antwortzeiten und Auslastung der einzelnen Server und verteilt basierend auf dieser Beurteilung die Anfragen. Durch die Verteilung des Dienstes auf mehrere Server schützt man sich zusätzlich vor Hardwareausfall, da bei Ausfall eines Server Nodes der Netzwerkverkehr einfach über andere Nodes erfolgen kann. Das primäre Ziel ist es, den Netzwerkverkehr bei hoher Nachfrage auf alle vorhandenen Nodes aufzuteilen, um die bestmögliche Performance zu gewährleisten. Der User weiß normalerweise nichts über vorhandene Backend- bzw. Backupserver, für ihn scheint es so als ob nur ein Server hinter einem Dienst steht. 
+ \cite{LoadBalancing1}
 
 \subsection{Wann und wozu verwendet man Load Balancing?}
 \label{sec:Wann und wozu verwendet man Load Balancing?}
@@ -21,24 +22,33 @@ Im Webhostingbereich wird Load Balancing typischerweise für die Verteilung von 
 \pagebreak
 \subsection{Beispiel Website}
 \label{sec:Beispiel Website}
+Anhand dieses kleinen Beispiels einer Website möchte ich die zwei oben genannten Haupteinsatzgründe für Load Balancing veranschaulichen. 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.7\linewidth]{images/loadbalancing1.jpg}
+		\includegraphics[width=0.4\linewidth]{images/loadbalancing12.jpg}
+		\caption{Aufbau Website \cite{LoadBalancingGrafik2}}
+		\label{Aufbau Website}
+	\end{center}
+\end{figure}
+
+Mögliche Probleme bei einer Website: zu hohe Anzahl an Anfragen für Webserver oder Datenbank- bzw. Webserver fällt aus.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.4\linewidth]{images/loadbalancing1.jpg}
 		\caption{Load Balancing Beispiel \cite{LoadBalancingGrafik1}}
 		\label{Load Balancing Beispiel}
 	\end{center}
 \end{figure}
-Anhand dieses kleinen Beispiels einer Website möchte ich die zwei oben genannten Haupteinsatzgründe für Load Balancing veranschaulichen. 
-
-Mögliche Probleme bei einer Website: zu hohe Anzahl an Anfragen für Webserver (falls die Seite nur von einem Webserver gehostet wird), Datenbank- bzw. Webserver fällt aus.
 
 Lösung durch Load Balancing: Einsatz von mehreren Servern. Um für eine hohe Anzahl an Anfragen gerüstet zu sein, muss die Website über mehrere Webserver verfügbar sein. Da eine Domain nur einem physikalischen Server zugewiesen werden kann, wird der Load Balancer zwischen dem Internet und den Webservern geschaltet und bekommt die öffentliche Domain zugewiesen. Wenn mehrere User die Website abrufen, beurteilt der Load Balancer die Antwortzeiten und Auslastung der einzelnen Webserver und verteilt die Anfragen so, dass die bestmögliche Performance erreicht wird. Außerdem wird so auch die Ausfallsicherheit der Website gewährleistet, da die Website jetzt über mehrere Webserver gehostet wird. Zusätzlich wird in diesem Beispiel ein Backupserver der Datenbank erstellt. Falls der Datenbankserver ausfällt oder ausgetauscht werden muss, springt einfach der Backupserver ein.      
 
 \pagebreak
 \subsection{Notwendigkeit von Load Balancing}
 \label{sec:Notwendigkeit von Load Balancing}
-Das primäre Ziel von Load Balancing ist es den Netzwerkverkehr bei hoher Nachfrage auf alle vorhandenen Nodes aufzuteilen, um die bestmögliche Performance zu gewährleisten. Netzwerke und Server sind die Hauptgründe, warum Load Balancing notwendig ist. In der heutigen Zeit, ist das Internet ein wichtiger Bestandteil für jedes Unternehmens ist (um Netzwerk zwischen Firma, Lieferanten, Kunden, etc. zu erzeugen), bei dem es auch um viel Geld geht. Firmen, vor allem im e-commerce Bereich (elektronischer Handel), können es sich nicht leisten, wenn ihr Netzwerk entweder sehr langsam ist bzw. ausfällt. 
-Um z.B. eine Website für elektronischen Handel zu erstellen, muss man Faktoren wie Server, Switches, Firewalls, etc. berücksichtigen. Durch das Verwenden von mehreren Servern für so eine Website entstehen aber Herausforderungen in den Bereichen Skalierbarkeit, Verwaltbarkeit und Verfügbarkeit. Load Balancing löst zusätzlich viele dieser Probleme.\vspace{5mm}
+Das primäre Ziel von Load Balancing ist es den Netzwerkverkehr bei hoher Nachfrage auf alle vorhandenen Nodes aufzuteilen, um die bestmögliche Performance zu gewährleisten. Netzwerke und Server sind die Hauptgründe, warum Load Balancing notwendig ist. In der heutigen Zeit ist das Internet ein wichtiger Bestandteil für jedes Unternehmens (um Netzwerk zwischen Firma, Lieferanten, Kunden, etc. zu erzeugen), bei dem es auch um viel Geld geht. Firmen, vor allem im e-commerce Bereich (elektronischer Handel), können es sich nicht leisten, wenn ihr Netzwerk entweder sehr langsam ist bzw. ausfällt. 
+Um z.B. eine Website für elektronischen Handel zu erstellen, muss man Faktoren wie Server, Switches, Firewalls, etc. berücksichtigen. Durch das Verwenden von mehreren Servern für so eine Website entstehen aber Herausforderungen in den Bereichen Skalierbarkeit, Verwaltbarkeit und Verfügbarkeit. Load Balancing löst zusätzlich viele dieser Probleme.
+.\vspace{5mm}
 \textbf{Skalierbarkeit} \\
 
 Skalierbarkeit ist kein neues Problem. Früher ist eine Applikation auf einem Server gelaufen. Falls dieser Server für die Applikation nicht mehr ausreichend war, wurde dieser entweder verbessert oder durch einen performanteren Server ersetzt. Durch Load Balancing ist es jedoch möglich, die Applikation auf mehreren Servern zu verteilen. Durch die mehreren Server ist es möglich, sämtliche Anfragen zu verteilen um bestmögliche Performance zu gewährleisten. Load Balancer verwenden Scheduling Algorithmen um die Anfragen zu verteilen\vspace{5mm}
@@ -78,7 +88,7 @@ Global Server Load Balancing: Verteilung der User zu verschiedenen Data Center, 
 
 Firewall Load Balancing: Verteilung des Netzwerkverkehrs auf mehrere Firewalls um vor Firewallausfall geschützt zu sein.
 
-Transparent Cache Switching: lenkt den Netzwerkverkehr zu Caches um den Antwortzeit zu verringern. [2]
+Transparent Cache Switching: lenkt den Netzwerkverkehr zu Caches um den Antwortzeit zu verringern. 
 
 \textbf{Load Balancing Produkte} \\
 
@@ -380,16 +390,16 @@ Das OSI Schichtenmodell ist der Standard, der definiert wie unterschiedliche Ger
 
 \subsection{Load Balancing auf verschiedenen Layern}
 \label{sec:Load Balancing auf verschiedenen Layern}
-Layer-2 Load Balancing (auch als Link- oder Portaggregation bezeichnet) verbindet zwei oder mehrere Links zu einer leistungsfähigeren logischen Verknüpfung. Aggregierte Verknüpfungen stellen zusätzlich Redundanz und Fehlertoleranz, wenn jeder der einzelnen aggregierten Links einen unterschiedlichen physikalischen Pfad folgt.
+Layer-2 Load Balancing (auch als Link- oder Portaggregation bezeichnet) verbindet zwei oder mehrere Links zu einer leistungsfähigeren logischen Verknüpfung. Aggregierte Verknüpfungen stellen zusätzlich Redundanz und Fehlertoleranz, wenn jeder der einzelnen aggregierten Links einen unterschiedlichen physikalischen Pfad folgt. Linkaggregation kann verwendet werden um den Zugang zu öffentlichen Netzwerken zu verbessern durch aggregieren von Modemverbindungen oder Digitalleitungen. 
 
-Layer 4 Load Balancing ist für die Verteilung der Anfragen zu den Servern auf Transport Layer Ebene zuständig, dazu gehören die Transportprotokolle TCP, UDP und SCTP. Z.B. ein normaler Router sendet eintreffende Pakete einfach an die geeignete IP Adresse, doch ein Layer 4 Router verteilt die Anfragen der Clients, die nur die IP-Adresse eines Services wissen, an alle Server,  auf denen der Service läuft, bestmöglich. 
+Layer 4 Load Balancing ist für die Verteilung der Anfragen zu den Servern auf Transport Layer Ebene zuständig, dazu gehören die Transportprotokolle TCP, UDP und SCTP. Der Load Balancer verteilt die Netzwerkverbindung der Clients, die nur die IP-Adresse für einen Services wissen, an alle verfügbaren Server die für den Service zuständig sind.  
 
-Das Konzept von Layer 7 (auch als Application-Level Load Balancing bezeichnet) ist die Lastenverteilung bezogen auf den Content-Typ (z.B. Scripts wie HTML, CSS, etc.) der Client-Anfrage. Geräte, die Layer 7 Load Balancing betreiben können, heißen Application Delivery Controllers (ADC). Da der Load Balancing Server weiß,  was der Client  für einen Content-Typ haben will, kann er abwägen,  welcher der vorhanden Server am besten mit dieser Anfrage umgehen kann, da jeder Content-Typ spezielle Anforderungen an Hardware und Software hat. \cite{LoadBalancing3}
-\pagebreak
+Das Konzept von Layer 7 (auch als Application-Level Load Balancing bezeichnet) ist die Lastenverteilung bezogen auf den Content-Typ (z.B. Scripts wie HTML, CSS, etc.) der Client-Anfrage. Geräte, die Layer 7 Load Balancing betreiben können, heißen Application Delivery Controllers (ADC). Da der Load Balancing Server weiß,  was der Client  für einen Content-Typ haben will, kann er abwägen,  welcher der vorhanden Server am besten mit dieser Anfrage umgehen kann, da jeder Content-Typ spezielle Anforderungen an Hardware und Software hat. \cite{LoadBalancing4}
+
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.3\linewidth]{images/loadbalancing4.jpg}
-		\caption{Konzept Layer 7 Load Balancing \cite{LoadBalancing2}}
+		\caption{Konzept Layer 7 Load Balancing \cite{LoadBalancing3}}
 		\label{Konzept Layer 7 Load Balancing}
 	\end{center}
 \end{figure}
@@ -400,7 +410,7 @@ Layer 7 Switching (auch bezeichnet als Request oder Application Switching) verte
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.3\linewidth]{images/loadbalancing5.jpg}
-		\caption{Layer 7 Switching \cite{LoadBalancing2}}
+		\caption{Layer 7 Switching \cite{LoadBalancing3}}
 		\label{Layer 7 Switching}
 	\end{center}
 \end{figure}
@@ -411,7 +421,7 @@ Verbindet man das Load Balancing Konzept von Layer 7 mit Layer 7 Switching so er
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.3\linewidth]{images/loadbalancing6.jpg}
-		\caption{Layer 7 Load Balancing \cite{LoadBalancing2}}
+		\caption{Layer 7 Load Balancing \cite{LoadBalancing3}}
 		\label{Layer 7 Load Balancing}
 	\end{center}
 \end{figure}
@@ -489,9 +499,37 @@ Um den Inhalt zu kontrollieren gibt es mehrere Möglichkeiten:
 \subsection{Sicherheit}
 \label{sec:Sicherheit}
 
-Da Load Balancer das Front End der Server Farm sind, können Load Balancer die Server vor Angriffen schützen. Viele Load Balancing Produkte sind mittlerweile schon mit mehreren Sicherheitsfeatures ausgestattet. Den Servern der Server Farm können private IP Adresse vergeben werden, um direkten Zugriff von außen zu unterbinden. Um mit Hosts, die eine private IP Adresse haben, zu kommunizieren, muss man zuerst über ein Gerät geleitet werden, welches NAT durchführt. \cite{LoadBalancing2}    
-\pagebreak
+Da Load Balancer das Front End der Server Farm sind, können Load Balancer die Server vor Angriffen schützen. Viele Load Balancing Produkte sind mittlerweile schon mit mehreren Sicherheitsfeatures ausgestattet. Den Servern der Server Farm können private IP Adresse vergeben werden, um direkten Zugriff von außen zu unterbinden. Um mit Hosts, die eine private IP Adresse haben, zu kommunizieren, muss man zuerst über ein Gerät geleitet werden, welches NAT durchführt. \cite{LoadBalancing2}  
 
+\subsection{Ausfallsicherheit}
+\label{sec:Ausfallsicherheit}  
+Ein großer Vorteil von Load Balancing ist die Ausfallsicherheit. Wenn ein Server ausfällt, übernehmen einfach die anderen verfügbaren Server die Anfragen. Doch was ist wenn der Load Balancer ausfällt? Ein einzelner Load Balancer ist ebenfalls ein Single Point of Failure, das heißt wenn der Load Balancer ausfällt ist der gesamte Service/Dienst nicht verfügbar. Durch Verwendung von zwei Load Balancern kann man dieses Problem lösen. Bei Einsatz von zwei Load Balancern gibt es zwei mögliche Konfigurationen, nämliche Active-Standby und Active Active. Bei der Active-Standby Variante verteilt der aktive Load Balancer die Anfragen und der passive Load Balancer agiert als Backup. Bei der Active-Active Variante verteilen beide Load Balancer die Anfragen und agieren als Backup für den jeweilig anderen Load Balancer.\vspace{5mm}
+
+\textbf{Active-Standby} \\ 
+
+Die aktive Einheit verteilt den Netzwerkverkehr auf die vorhandenen Server, der Passive reagiert auf keine Anfragen. Die zwei Load Balancer sind über einen private Link miteinander verbunden und kontrollieren mittels eines speziellen Protokolls den Zustand des jeweils anderen Load Balancers. Wenn der aktive Load Balancer ausfällt springt die passive Einheit sofort ein.
+\pagebreak
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\linewidth]{images/loadbalancing13.png}
+		\caption{Active-Standby Variante \cite{LoadBalancingGrafik3}}
+		\label{Active-Standby Variante}
+	\end{center}
+\end{figure}
+
+
+\textbf{Active-Active} \\
+
+Bei der Active-Active Variante verteilen beide Load Balancer die Anfragen und agieren als Backup für den anderen Load Balancer. Damit man die Active-Active Variante verwenden kann, gibt es mehrere Möglichkeiten. Eine davon ist die Verwendung von mehreren VIPs. Falls einer der Load Balancer ausfällt, übernimmt die noch funktionierende Einheit auch die VIP des ausgefallenen. Jetzt muss nur noch ein Weg gefunden, wie die Anfragen auf die beiden Load Balancer verteilt werden. Dafür kann man DNS verwenden, dass die Web Domain zu einer IP-Adresse entschlüsselt und ein Round-Robin zwischen den beiden VIPs durchführt, damit beide Load Balancer Anfragen erhalten.  
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\linewidth]{images/loadbalancing14.png}
+		\caption{Active-Active Variante \cite{LoadBalancingGrafik3}}
+		\label{Active-Active Variante}
+	\end{center}
+\end{figure}
+
+\pagebreak
 \section{URL Switching}
 \label{sec:URL Switching}
 

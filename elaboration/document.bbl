@@ -6,6 +6,12 @@ Liquid~Web Inc.
 \newblock http://www.liquidweb.com/kb/understanding-load-balancing/.
 \newblock Zuletzt besucht: 03.02.2016.
 
+\bibitem{LoadBalancingGrafik2}
+Grafik website.
+\newblock
+  http://tutorials.jenkov.com/software-architecture/n-tier-architecture.html.
+\newblock Zuletzt besucht: 03.02.2016.
+
 \bibitem{LoadBalancingGrafik1}
 Grafik load balancing webserver.
 \newblock
@@ -28,10 +34,21 @@ The architecture of open source applications (volume 2): Scalable web
 \newblock http://www.aosabook.org/en/distsys.html.
 \newblock Zuletzt besucht: 10.02.2016.
 
+\bibitem{LoadBalancing4}
+Linux Virtual Server~Knowledge Base.
+\newblock Load balancing.
+\newblock http://kb.linuxvirtualserver.org/wiki/Load_balancing.
+\newblock Zuletzt besucht: 03.02.2016.
+
 \bibitem{LoadBalancing3}
 Rui Nataario.
 \newblock Load balancing iii.
 \newblock http://networksandservers.blogspot.co.at/2011/03/balancing-iii.html.
+\newblock Zuletzt besucht: 03.02.2016.
+
+\bibitem{LoadBalancingGrafik3}
+Load balancing mit mehreren load balancern.
+\newblock http://www.ibm.com/developerworks/library/ac-hasasp/.
 \newblock Zuletzt besucht: 03.02.2016.
 
 \end{thebibliography}

@@ -2,14 +2,19 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: document.aux
 The style file: unsrt.bst
 Database file #1: references.bib
 Warning--entry type for "LoadBalancing1" isn't style-file defined
---line 10 of file references.bib
+--line 2 of file references.bib
 Warning--entry type for "LoadBalancing3" isn't style-file defined
+--line 17 of file references.bib
+Warning--entry type for "LoadBalancing4" isn't style-file defined
 --line 25 of file references.bib
 Warning--entry type for "LoadBalancingGrafik1" isn't style-file defined
 --line 33 of file references.bib
-Warning--entry type for "WeightedLoadBalancingGrafik" isn't style-file defined
+Warning--entry type for "LoadBalancingGrafik2" isn't style-file defined
 --line 40 of file references.bib
-Warning--entry type for "Queues" isn't style-file defined
+Warning--entry type for "LoadBalancingGrafik3" isn't style-file defined
 --line 47 of file references.bib
-Warning--I didn't find a database entry for "LoadBalancingGrafik2"
-(There were 6 warnings)
+Warning--entry type for "WeightedLoadBalancingGrafik" isn't style-file defined
+--line 54 of file references.bib
+Warning--entry type for "Queues" isn't style-file defined
+--line 61 of file references.bib
+(There were 8 warnings)
