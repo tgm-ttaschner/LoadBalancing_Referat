@@ -197,7 +197,7 @@ Da bei der Lastenverteilung auf einige Aspekte, wie die Auslastung der Serverhar
 
 Round-Robin lässt sich vielseitig einsetzen und bietet sich besonders in Situationen an, in denen die durch die Anfrage bedingte Serverlast möglichst gleich ausfällt.
  
-Least Connections wäre von Vorteil, wenn sich die Art der Anfrage stark ändern kann, wo Round-Robin im Laufe der Zeit Anfragen ungleich verteilen könnte.
+Least Connections wäre von Vorteil, wenn sich die Art der Anfrage stark ändern kann, wo Round-Robin im Laufe der Zeit Anfragen ungleich verteilen würde.
 
 Eine gewichtete Verteilung kann die Anfragen auf leistungsschwächere Server in einem Cluster fair aufteilen. Die Methode bietet sich dann an, wenn bereits bestehende, in die Jahre gekommene Hardware weiterverwendet werden soll.
 
@@ -207,7 +207,7 @@ Server-Probe ist dann zu verwenden, wenn eine genaue Erfassung der Serverlasten 
 
 Server Load Thresholds können Schutz vor Serverüberlastungen bieten, die bei einem plötzlich auftretenden Ansturm auf den Server auftreten können.
 
-In der Praxis kommt es ganz auf die Hardwareausstattung der verwendeten Server und die darauf ausgeführte Applikation an.
+In der Praxis kommt es ganz auf die Hardwareausstattung der verwendeten Server und die darauf ausgeführten Applikationen an.
 
 
 \section{Caches}
@@ -215,24 +215,153 @@ In der Praxis kommt es ganz auf die Hardwareausstattung der verwendeten Server u
 
 \subsection{Grundlagen}
 \label{sec:Grundlagen}
-Ein Cache ist ein schneller Zwischenspeicher, in dem häufig benutzte Dateien gespeichert werden. Es soll die Reaktionszeit auf eine Anfrage reduziert werden, was auch Bandbreite sparen kann.
+Ein Cache ist ein schneller Zwischenspeicher, in dem häufig aus dem Internet abgerufene Dateien gespeichert werden. Es soll durch ein Zwischenspeichern von Daten die Reaktionszeit auf eine Anfrage reduziert werden. Hierbei kann auch Bandbreite gespart werden, da die Ressource, sofern sie erneut benötigt wird, nicht vom ursprünglichen Quellserver angefragt werden muss, sondern aus dem Cache geladen werden kann.
 Anhand der folgenden Grafik soll die Funktionsweise eines Caches erklärt werden:
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.5\linewidth]{images/Cache_Funktionsweise.png}
-		\caption{Funktionsweise eines Caches \cite{LoadBalancing2}}
+		\caption{Funktionsweise eines Caches, Zwischenspeichern einer Grafik \cite{LoadBalancing2}}
 		\label{Cache_Funktionsweise}
 	\end{center}
 \end{figure}
 
+Client 1 möchte die Webseite \textit{foundrynet.com} aufrufen und muss dazu, unter anderem, deren Logo herunterladen.
+Es wird eine HTTP Anfrage an den Cache gesendet.
+Da der Cache zum ersten Mal eine Anfrage für diese Webseite bekommt und den Content nicht zwischengespeichert hat, sendet er eine Anfrage an den Server, auf dem die Webseite gespeichert ist und sichert den durch Client 1 angefragten Content lokal im Arbeitsspeicher oder auf einer Festplatte.
+Der Cache übermittelt abschließend dem Client die Webseite.
+Möchte nun Client 2 ebenfalls \textit{foundrynet.com} aufrufen, so muss nur eine Anfrage an den Cache geschickt werden, der die Webseite nun lokal vorliegen hat und kann dem Client diese Version schicken, ohne den Server erneut kontaktieren zu müssen.
+In Folge dessen hat Benutzer 2 den Content schneller vorliegen und es wird Bandbreite gespart. \cite{LoadBalancing2}
 
-\subsection{Caches in Load Balancing}
-\label{sec:Caches in Load Balancing}
+Da Anfragen vom Cache im Namen des Clients getätigt werden, werden solche Caches auch \textit{Proxy Cache} oder \textit{Proxy Server} genannt.
+Befindet sich eine angeforderte Ressource im lokalen Speicher des Caches, so wird dies ein \textit{cache hit} genannt. Sollte dies nicht der Fall sein, so wird dies ein \textit{cache miss} genannt.
+Die Effizienz eines Caches kann anhand der \textit{Cache-hit Rate} gemessen werden. Sie gibt an, wie viel Content (in Prozent) der Cache selber zur Verfügung stellt. Je höher dieser Prozentsatz ist, umso besser wirkt sich das auf die Antwortzeit aus.
+\cite{LoadBalancing2}
+
+\subsection{Cachetypen}
+\label{sec:Cachetypen}
+Caches können zur Beschleunigung der Antwortzeit seitens des Benutzers, aber auch zur Verbesserung der Leistung von Webservern verwendet werden. Infolgedessen kann hier zwischen zwei Typen unterschieden werden: \textit{Client-} und \textit{Serverseitige Beschleunigung}.
+
+Auf Clientseite sollen eine raschere Antwortzeit und eine Bandbreitenersparnis ermöglicht werden. Auf Serverseite sollen eine schnellere Bereitstellung von Inhalten und eine Ersparnis an Webservern ermöglicht werden. Die Idee dahinter ist es den Cache primär zur Bereitstellung von statischem Content zu verwenden, da Caches speziell für diese Aufgabe geeignet sind. Webserver können so entlastet und nur zur Generierung von Bereitstellung von dynamischen Inhalten verwendet werden. \cite{LoadBalancing2}
+
+\subsubsection{Client: Forward Proxy}
+\label{sec:Client: Forward Proxy}
+Hierbei wird explizit ein Cache-Server als Proxy einer Gruppe von Clients zugewiesen. Jeder Client muss in seinem Browser eine entsprechende Konfiguration vornehmen, um den Proxy Server verwenden zu können. Da der Proxy Anfragen im Namen des Clients stellt, können Netzwerkadministratoren nur den Proxy-Servern einen Zugriff ins Internet erlauben, was eine erhöhte Netzwerksicherheit zur Folge hat, besonders, da der Server, von dem der Content geladen wird, nur die IP-Adresse vom Cache-Server sieht.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/Forward_Proxy.png}
+		\caption{Funktionsweise von Forward Proxy Load Balancing \cite{LoadBalancing2}}
+		\label{Forward_Proxy_Load_Balancing}
+	\end{center}
+\end{figure}
+
+Um das Problem der Skalierbarkeit und Verfügbarkeit zu lösen, wird noch ein Load-Balancer zwischen die Clients und Cache-Server geschaltet und der Load-Balancer statt den Cache-Servern direkt angesprochen.
+\cite{LoadBalancing2}
+
+\subsubsection{Server: Reverse Proxy}
+\label{sec:Server: Reverse Proxy}
+Hierbei wird ein Cache-Server vor die Webserver geschaltet, der bei einem cache-miss direkt vor Ort die benötigten Inhalte der Webseite anfordern kann. Wichtig dabei ist, dass die Domain der Webseite nicht mehr auf die IP des Webservers, sondern des Cache-Servers zeigt.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/Reverse_Proxy.png}
+		\caption{Funktionsweise von Reverse Proxy Load Balancing \cite{LoadBalancing2}}
+		\label{Reverse_Proxy_Load_Balancing}
+	\end{center}
+\end{figure}
+
+Um das Problem der Skalierbarkeit und Verfügbarkeit zu lösen, kann auch hier noch ein Load-Balancer vor die Cache-Server geschaltet werden. Die Domain muss dann auf die externe IP des Load-Balancers gemappt werden.
+\cite{LoadBalancing2}
+
+\section{Queues}
+\label{sec:Queues}
+Queues (Warteschlangen) sind ein Möglichkeit, um Schreibvorgänge effizient zu verwalten. Einfache Systeme, wo der Rechenaufwand bei Anfragen und die Datenbank klein sind, sollten Schreibvorgänge schnell abgearbeitet sein. Sobald ein System aber umfangreicher, komplexer wird, können solche Vorgänge einen längeren Zeitraum in Anspruch nehmen. Die Daten könnten auch an mehreren Stellen geschrieben werden, während die Serverlast hoch ist, was eine schlechte Performance zur Folge hat.
+\cite{Queues}
+
+Die folgende Grafik visualisiert ein System ohne Queues:
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/synchronousRequest.png}
+		\caption{System ohne Queues \cite{Queues}}
+		\label{System_ohne_Queues}
+	\end{center}
+\end{figure}
+
+Die Clients müssen auf eine Antwort des Servers warten, bevor sie mit ihrer Tätigkeit fortfahren können. Dieses synchrone Verhalten vermindert die Leistung des Clients sehr. Die Lösung für dieses Problem sind Queues. Sie trennen die Anfragen des Clients von der eigentlichen Tätigkeit, die vom Server verrichtet werden soll.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/queues.png}
+		\caption{System ohne Queues \cite{Queues}}
+		\label{System_ohne_Queues}
+	\end{center}
+\end{figure}
+
+Wie auf der Abbildung zu erkennen ist, werden Anfragen einfach der Reihe nach eingeordnet und vom Server abgearbeitet. Queues ermöglichen es dem Client eine asynchrone Weise zu arbeiten, da sie nicht auf eine Antwort vom Server warten müssen.
+Der Client bekommt eine Bestätigung, dass der Task erhalten wurde und er kann in regelmäßigen Abständen überprüfen, ob der Task bereits abgearbeitet wurde.
+\cite{Queues}
+
+\section{Probleme}
+\label{sec:Probleme}
+
+\subsection{Mega Proxy Session}
+\label{sec:Mega Proxy Session}
+Die Mega Proxy Session, auch bekannt als Mega Proxy Problem tritt auf, wenn die korrekte IP-Adresse eines Clients nicht ermittelbar ist. Dieses Problem kann auftreten, wenn sich der Client hinter einem Proxy-Server befindet und dieser die IP-Adresse des Clients auf seine eigene ändert und der Zielserver nur mehr diese sehen kann. Die meisten ISP und Firmen haben einen oder mehrere Proxy-Server in ihrem Netzwerk, um die Identität des Clients zu verschleiern. Dabei kann es zu einem Problem mit der Sitzungspersistenz und in Folge dessen auch zu einem Load-Balancing Problem beim Load-Balancer kommen. Um dieses Problem vermeiden zu können, kann der Load-Balancer die Clients nicht mehr nur auf IP-Basis identifizieren. Das Load-Balancing Konzept muss verändert werden.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/MegaProxy1.png}
+		\caption{Sitzungspersistenzproblem bei Megaproxy \cite{LoadBalancing2}}
+		\label{Sitzungspersistenzproblem_bei_Megaproxy}
+	\end{center}
+\end{figure}
+
+Die virtuelle Quell-IP-Adressen könnten gruppiert und als ein Server behandelt werden. Auf diese Weise ist der Load-Balancer immer noch in der Lage die Sitzungspersistenz aufrechterhalten zu können, indem alle Anfragen zu einem Server geleitet werden.
+Einerseits wird das Problem bezüglich der Sitzungspersistenz gelöst, andererseits kann das Lastverteilungskonzept fehlschlagen, da alle Anfragen des Proxy-Netzwerkes an den gleichen Server weitergeleitet werden.
+\cite{LoadBalancing2}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{images/MegaProxy2.png}
+		\caption{Load-Balancing Problem bei Megaproxy \cite{LoadBalancing2}}
+		\label{Load-Balancing_Problem_bei_Megaproxy}
+	\end{center}
+\end{figure}
 
 \section{Apache Hadoop}
 \label{sec:Apache Hadoop}
+Apache Hadoop ist ein Framework, welches das verteilte Verarbeiten von großen Datenmengen, die auf vielen Clustern verstreut sein können. Das Design erlaubt es, dass sowohl ein paar wenige, aber auch mehrere 1000 Server mühelos verwendet werden können. Das Framework selbst wurde so entworfen, dass Fehler auf Applikationsebene entdeckt und beseitigt werden können, was wiederum eine hohe Verfügbarkeit des Services auf dem Cluster sicherstellt.
 
+\section{Module}
+\label{sec:Module}
+\textbf{Hadoop Common:} Werkzeuge, um die andere Hadoop Module unterstützen zu können.
+
+\textbf{Hadoop Distributed File System (HDFS™):} Ein verteiltes Dateisystem mit einer hohen Datendurchsatzrate
+
+\textbf{Hadoop YARN:} Ein Framework zur Aufgabenverwaltung und Verwaltung von Clusterressourcen
+
+\textbf{Hadoop MapReduce: } Ein System, welches auf YARN basiert und zur paralellen Verarbeitung von großen Datenmengen dient
+
+\subsection{Einsatzgebiete}
+\label{sec:Einsatzgebiete}
+Hadoop wird unter anderem von
+
+\textbf{Adobe}
+
+\textbf{AOL}
+
+\textbf{EBay}
+
+\textbf{Facebook}
+
+\textbf{Google}
+
+\textbf{Hulu}
+
+\textbf{IBM}
+
+und vielen anderen Firmen verwendet.
 
 \section{Networking Grundlagen}
 \label{sec:Networking Grundlagen}
@@ -379,5 +508,4 @@ Man kann URL Regeln für den Load Balancer definieren, welche statischen und dyn
 \textbf{URL Switching Nutzungsrichtlinien} \\
 
 Wenn man URL Switching verwendet um die richtige Server Gruppe für die Verarbeitung auszuwählen, sollte man die Session Persitence innerhalb der Gruppe gewährleisten. Das kann durch die Verwendung von Cookie Switching in Kombination mit URL Switching erreicht werden. Durch die Cookie-Read Methode wird vom Server ein Cookie eingefügt, welches vom Load Balancer gelesen werden kann. Wenn das Cookie existiert sendet der Load Balancer die Anfrage zu dem vom Cookie angegebenen Server. Falls das Cookie nicht existiert verwendet der Load Balancer die definierten URL Switching Regeln um die Anfrage an die passende Server Gruppe zu versenden. \cite{LoadBalancing2}
-
 
